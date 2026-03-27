@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Book - My Personal Library</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="back-link">
+                <span class="back-arrow">←</span>
+                <span>Back to Library</span>
+            </a>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="add-book-container">
+            <div class="page-header">
+                <h2>Add a New Book</h2>
+                <p class="subtitle">Add a book from your computer to your personal library</p>
+            </div>
+
+            <form id="addBookForm" class="add-book-form">
+                <div class="form-group">
+                    <label for="bookFile">Book File</label>
+                    <input type="file" id="bookFile" accept=".txt" required>
+                    <p class="form-hint">Select a .txt file from your computer</p>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="bookTitle">Title</label>
+                        <input type="text" id="bookTitle" placeholder="Enter book title" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bookAuthor">Author</label>
+                        <input type="text" id="bookAuthor" placeholder="Enter author name" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="bookYear">Year</label>
+                        <input type="number" id="bookYear" placeholder="e.g. 1925" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bookCover">Cover Image (optional)</label>
+                        <input type="file" id="bookCover" accept="image/*">
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" id="cancelBtn" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Book</button>
+                </div>
+            </form>
+
+            <div id="successMessage" class="success-message" style="display: none;">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="24" cy="24" r="20" fill="var(--accent-light)"/>
+                    <path d="M16 24L22 30L32 18" stroke="var(--accent-hover)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <h3>Book Added Successfully!</h3>
+                <p>Your book has been added to your personal library.</p>
+                <a href="index.html" class="btn btn-primary">View Library</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="books.js"></script>
+    <script>
+        // Cancel button - go back to home
+        document.getElementById('cancelBtn').addEventListener('click', () => {
+            window.location.href = 'index.html';
+        });
+
+        // Auto-populate title from filename
+        document.getElementById('bookFile').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const title = file.name.replace('.txt', '').replace(/[-_]/g, ' ');
+                const words = title.split(' ').map(word =>
+                    word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+                ).join(' ');
+                document.getElementById('bookTitle').value = words;
+            }
+        });
+    </script>
+</body>
+</html>

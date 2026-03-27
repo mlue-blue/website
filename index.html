@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal Library</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <h1>My Personal Library</h1>
+                <a href="add-book.html" class="add-book-btn">Add Book</a>
+            </div>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search by title or author...">
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="stats">
+            <p>Showing <span id="bookCount">0</span> books</p>
+        </section>
+
+        <div class="book-grid" id="bookGrid">
+            <!-- Books will be rendered here by JavaScript -->
+        </div>
+
+        <div class="no-results" id="noResults" style="display: none;">
+            <p>No books found matching your search.</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>                </p>
+    </footer>
+
+    <!-- Reading Modal -->
+    <div class="modal" id="readingModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Book Title</h2>
+                <button class="close-btn" id="closeBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="bookContent" class="book-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="books.js"></script>
+</body>
+</html>
