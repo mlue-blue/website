@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3:*)",
+      "Bash(npx serve:*)",
+      "Bash(npm install:*)",
+      "Bash(npm start:*)",
+      "Bash(curl:*)",
+      "Bash(\"C:\\\\Users\\\\aryan\\\\website\\\\test-book.txt\")",
+      "Bash(node -c \"C:\\\\Users\\\\aryan\\\\website\\\\books.js\")",
+      "Bash(\"C:\\\\Users\\\\aryan\\\\website\\\\test-upload.txt\")",
+      "Bash(netstat -ano)",
+      "Bash(taskkill /F /PID 16076)"
+    ]
+  }
+}
