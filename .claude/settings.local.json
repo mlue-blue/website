@@ -10,7 +10,8 @@
       "Bash(node -c \"C:\\\\Users\\\\aryan\\\\website\\\\books.js\")",
       "Bash(\"C:\\\\Users\\\\aryan\\\\website\\\\test-upload.txt\")",
       "Bash(netstat -ano)",
-      "Bash(taskkill /F /PID 16076)"
+      "Bash(taskkill /F /PID 16076)",
+      "Bash(npm run:*)"
     ]
   }
 }

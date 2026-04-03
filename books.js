@@ -41,13 +41,14 @@ function renderBooks(booksToRender) {
         bookCard.className = 'book-card';
 
         bookCard.innerHTML = `
+            <button class="delete-btn" data-id="${book.id}" title="Delete book">&times;</button>
             <div class="book-cover">
-                ${book.cover ? `<img src="${book.cover}" alt="${book.title}">` : book.title.charAt(0)}
-            </div>
-            <div class="book-info">
-                <h3 class="book-title">${book.title}</h3>
-                <p class="book-author">by ${book.author}</p>
-                <p class="book-year">${book.year}</p>
+                ${book.cover ? `<img src="${book.cover}" alt="${book.title}" class="cover-image">` : `<span class="cover-letter">${book.title.charAt(0)}</span>`}
+                <div class="book-info">
+                    <h3 class="book-title">${book.title}</h3>
+                    <p class="book-author">by ${book.author}</p>
+                    <p class="book-year">${book.year}</p>
+                </div>
             </div>
             <div class="book-peek">
                 <div class="peek-content" id="peek-${book.id}">Hover to preview...</div>
@@ -55,8 +56,20 @@ function renderBooks(booksToRender) {
             </div>
         `;
 
-        // Add click handler to open book
-        bookCard.addEventListener('click', () => openBook(book));
+        // Add click handler to open book (unless clicking delete button)
+        bookCard.addEventListener('click', (e) => {
+            if (e.target.classList.contains('delete-btn')) {
+                return;
+            }
+            openBook(book);
+        });
+
+        // Add delete button handler
+        const deleteBtn = bookCard.querySelector('.delete-btn');
+        deleteBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            deleteBook(book.id, bookCard);
+        });
 
         // Add hover handler to load preview
         bookCard.addEventListener('mouseenter', () => loadPreview(book));
@@ -123,6 +136,35 @@ async function openBook(book) {
                 <p>Error loading book: ${error.message}</p>
             </div>
         `;
+    }
+}
+
+// Delete book
+async function deleteBook(bookId, cardElement) {
+    if (!confirm('Are you sure you want to delete this book? This cannot be undone.')) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_BASE}/books/${bookId}`, {
+            method: 'DELETE'
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to delete book');
+        }
+
+        // Remove the card from the grid with animation
+        cardElement.style.opacity = '0';
+        cardElement.style.transform = 'scale(0.9)';
+        setTimeout(() => {
+            cardElement.remove();
+            // Reload and render to update book count
+            reloadAndRender(searchInput ? searchInput.value : '');
+        }, 200);
+    } catch (error) {
+        console.error('Error deleting book:', error);
+        alert('Error deleting book: ' + error.message);
     }
 }
 
