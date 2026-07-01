@@ -11,7 +11,10 @@
       "Bash(\"C:\\\\Users\\\\aryan\\\\website\\\\test-upload.txt\")",
       "Bash(netstat -ano)",
       "Bash(taskkill /F /PID 16076)",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "WebFetch(domain:www.anthropic.com)",
+      "Bash(taskkill:*)",
+      "Bash(git add:*)"
     ]
   }
 }

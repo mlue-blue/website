@@ -1,3 +1,37 @@
+// Theme Management
+const themeToggle = document.getElementById('themeToggle');
+const htmlElement = document.documentElement;
+const sunIcon = document.querySelector('.sun-icon');
+const moonIcon = document.querySelector('.moon-icon');
+
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    setTheme(savedTheme);
+}
+
+function setTheme(theme) {
+    htmlElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    
+    if (theme === 'dark') {
+        if (sunIcon) sunIcon.style.display = 'none';
+        if (moonIcon) moonIcon.style.display = 'block';
+    } else {
+        if (sunIcon) sunIcon.style.display = 'block';
+        if (moonIcon) moonIcon.style.display = 'none';
+    }
+}
+
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = htmlElement.getAttribute('data-theme');
+        setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+    });
+}
+
+// Initialize theme immediately
+initTheme();
+
 // API Base URL
 const API_BASE = '/api';
 
@@ -44,15 +78,15 @@ function renderBooks(booksToRender) {
             <button class="delete-btn" data-id="${book.id}" title="Delete book">&times;</button>
             <div class="book-cover">
                 ${book.cover ? `<img src="${book.cover}" alt="${book.title}" class="cover-image">` : `<span class="cover-letter">${book.title.charAt(0)}</span>`}
-                <div class="book-info">
-                    <h3 class="book-title">${book.title}</h3>
-                    <p class="book-author">by ${book.author}</p>
-                    <p class="book-year">${book.year}</p>
+                <div class="book-peek">
+                    <div class="peek-content" id="peek-${book.id}">Hover to preview...</div>
+                    <div class="peek-hint">Click to read more</div>
                 </div>
             </div>
-            <div class="book-peek">
-                <div class="peek-content" id="peek-${book.id}">Hover to preview...</div>
-                <div class="peek-hint">Click to read more</div>
+            <div class="book-info">
+                <h3 class="book-title">${book.title}</h3>
+                <p class="book-author">by ${book.author}</p>
+                <p class="book-year">${book.year}</p>
             </div>
         `;
 
